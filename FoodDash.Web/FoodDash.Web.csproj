@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FoodDash.BusinessLogic\FoodDash.BusinessLogic.csproj" />
+    <ProjectReference Include="..\FoodDash.Common\FoodDash.Common.csproj" />
+    <ProjectReference Include="..\FoodDash.DataAccess\FoodDash.DataAccess.csproj" />
+  </ItemGroup>
+
+</Project>

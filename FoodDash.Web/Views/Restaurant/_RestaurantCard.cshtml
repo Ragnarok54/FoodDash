@@ -1,0 +1,32 @@
+﻿@model FoodDash.Web.Models.Restaurant.RestaurantModel
+
+<style>
+    .time--@Model.RestaurantId::after {
+        width: @string.Format("{0}%",Model.DeliveryTimePercentage);
+    }
+</style>
+
+<div class="restaurant-container" id="@Model.RestaurantId">
+    <div class="restaurant-card">
+        <div class="restaurant-card-preview" style="background: url('../../images/kfc.jpg') no-repeat center center; background-size: cover">
+            @*<img src="~/images/kfc.jpg"/>*@
+            @*<h6>restaurant-card</h6>
+            <h2>JavaScript Fundamentals</h2>*@
+            @*<a href="#">View all chapters <i class="fas fa-chevron-right"></i></a>*@
+        </div>
+        <div class="restaurant-card-info">
+            <div class="time-container">
+                <div class="time time--@Model.RestaurantId"></div>
+                <span class="time-text">
+                    @string.Format("{0} minutes", Model.DeliveryTime)
+                </span>
+            </div>
+            <h6>@Model.Type</h6>
+            <h2>@Model.Name</h2>
+            <button class="restaurant-card-btn" 
+                    onclick="location.href='@Url.Action("Details", "Restaurant", new { RestaurantId = Model.RestaurantId})'">
+                Order
+            </button>
+        </div>
+    </div>
+</div>

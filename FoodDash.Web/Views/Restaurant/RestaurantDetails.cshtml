@@ -1,0 +1,23 @@
+﻿@model FoodDash.Web.Models.Restaurant.RestaurantDetailsModel
+
+@{ 
+    ViewData["Title"] = Model.Name;
+
+    var lastProductCategoryId = 0;
+}
+<header>
+
+</header>
+
+<div class="center" style="margin-top: 20%">
+    @foreach (var product in Model.Products)
+    {
+        if (lastProductCategoryId != product.ProductCategoryId)
+        {
+            //Show a line break with section name
+            lastProductCategoryId = product.ProductCategoryId;
+        }
+
+        @await Html.PartialAsync("~/Views/Product/_ProductCard.cshtml", product)
+    }
+</div>

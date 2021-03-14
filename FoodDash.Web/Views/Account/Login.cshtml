@@ -1,0 +1,53 @@
+﻿@model FoodDash.Web.Models.Account.LoginModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Login";
+}
+
+
+<section id="home" style="padding:40px 0; background-position: center; background-repeat: no-repeat;background-size: cover;background-attachment:fixed;">
+    <div class="container">
+        <div class="textwidget">
+            <h1 class="toptitle">
+                Restaurants and more,<br /> delivered to your door <br /><br />
+                <i class="fa fa-star roundicon"></i>
+            </h1>
+            <div class="contactstyle topform">
+                <form asp-action="Login">
+                    <h4 style="text-align: center">Log in to your FoodDash</h4>
+                    <hr />
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Login" class="btn btn-primary" />
+
+                        <div style="margin-top: 1em; text-align: center;">
+                            <a href="@Url.Action("Register")" style="color: var(--fd-orange)">
+                                Don't have an account? Register now!
+                            </a>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

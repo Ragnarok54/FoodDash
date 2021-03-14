@@ -1,0 +1,11 @@
+﻿@model FoodDash.Web.Models.Restaurant.HomeModel
+
+@{
+    ViewData["Title"] = "Restaurants";
+}
+
+
+@foreach (var restaurant in Model.Restaurants)
+{
+    @await Html.PartialAsync("~/Views/Restaurant/_RestaurantCard.cshtml", restaurant);
+}
