@@ -23,7 +23,12 @@
             </div>
             <h6>@Model.Type</h6>
             <h2>@Model.Name</h2>
-            <button class="restaurant-card-btn" 
+            <button class="restaurant-card-btn"
+                    onclick="location.href='@Url.Action("Edit", "Restaurant", new { RestaurantId = Model.RestaurantId})'"
+                    style="position:initial">
+                Edit
+            </button>
+            <button class="restaurant-card-btn"
                     onclick="location.href='@Url.Action("Details", "Restaurant", new { RestaurantId = Model.RestaurantId})'">
                 Order
             </button>

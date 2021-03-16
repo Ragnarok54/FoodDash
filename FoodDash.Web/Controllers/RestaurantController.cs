@@ -26,7 +26,7 @@ namespace FoodDash.Web.Controllers
                 {
                     RestaurantId = 1,
                     Name = "KFC",
-                    Description = "Mancare buna bomba rupem. Hai acilea",
+                    Description = "Best fast food in town",
                     Type = "Fast Food",
                     DeliveryTimePercentage = 20
                 },
@@ -34,7 +34,7 @@ namespace FoodDash.Web.Controllers
                 {
                     RestaurantId = 2,
                     Name = "KFC",
-                    Description = "Mancare buna bomba rupem. Hai acilea",
+                    Description = "Best food in town",
                     Type = "Restaurant",
                     DeliveryTimePercentage = 90
                 }
@@ -101,6 +101,32 @@ namespace FoodDash.Web.Controllers
                 return View("~/Views/Restaurant/RestaurantDetails.cshtml", model);
             }
             catch(Exception ex)
+            {
+                _logger.LogError(ex, "Failed to load retaurant details");
+                return RedirectToAction("Index");
+            }
+        }
+
+        public IActionResult Edit(int restaurantId)
+        {
+            try
+            {
+                var model = new RestaurantModel();
+
+                if (restaurantId > 0)
+                {
+                    model = new RestaurantModel
+                    {
+                        RestaurantId = 2,
+                        Name = "KFC",
+                        DeliveryTime = 60,
+                        Description = "Best food in town"
+                    };
+                }
+
+                return View("~/Views/Restaurant/RestaurantEdit.cshtml", model);
+            }
+            catch (Exception ex)
             {
                 _logger.LogError(ex, "Failed to load retaurant details");
                 return RedirectToAction("Index");

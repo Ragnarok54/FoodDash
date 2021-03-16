@@ -4,7 +4,7 @@ for details on configuring this project to bundle and minify static web assets. 
 /* Website Colors
 -------------------------------------------------- */
 :root {
-    --fd-purple: #704C5E;
+    --fd-dark-blue: #2A265F;
     --fd-blue: #38A3A5;
     --fd-beige: #EDD4B2;
     --fd-orange: #BB6B00;
@@ -90,13 +90,16 @@ html {
 }
 
 body {
-     margin bottom by footer height 
+    /*margin bottom by footer height*/ 
     margin-bottom: 60px;
     margin-top: 5em;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     background-color: var(--fd-blue);
+    background-image: url("../images/burger.png");
+    background-repeat: no-repeat;
+    background-position-y: 50%;
 }
 
 .footer {
@@ -236,13 +239,21 @@ h1.toptitle {
     letter-spacing: 1px;
 }
 
-/*Product card*/
+.restaurant-card-btn:hover {
+    color: #212529;
+    background-color: var(--fd-orange);
+    text-decoration: none;
+}
+
+/*Product card
+ ----------------------------------*/
 
 .center {
     position: absolute;
-    top: 50%;
+    top: 20%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
+    width: 50%;
 }
 
 .card {
@@ -254,7 +265,10 @@ h1.toptitle {
     border-radius: 6px;
     overflow: hidden;
     position: relative;
-    margin: 1.5rem;
+    margin-bottom: 1.5rem;
+    margin-left: 0.8rem;
+    margin-right: 0.8rem;
+    float: left;
 }
 
 .card h1 {

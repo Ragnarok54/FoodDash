@@ -1,0 +1,18 @@
+﻿.cart-header {
+    background-color: var(--fd-beige);
+}
+
+.cart-align-center{
+    text-align: center;
+}
+
+.cart-order-btn{
+    background-color: var(--fd-dark-blue);
+    color: white;
+}
+
+.cart-order-btn:hover {
+    color: #212529;
+    background-color: var(--fd-orange);
+    text-decoration: none;
+}
