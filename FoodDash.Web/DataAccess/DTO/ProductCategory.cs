@@ -1,4 +1,4 @@
-﻿namespace FoodDash.BusinessLogic.DTO
+﻿namespace FoodDash.Web.DataAccess.DTO
 {
     public class ProductCategory
     {

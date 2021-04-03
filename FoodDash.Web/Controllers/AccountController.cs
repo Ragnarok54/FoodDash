@@ -1,22 +1,23 @@
-﻿using FoodDash.Web.Models.Account;
+﻿using FoodDash.Web.Common.Enums;
+using FoodDash.Web.DataAccess;
+using FoodDash.Web.DataAccess.Entities;
+using FoodDash.Web.Models.Account;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 
 namespace FoodDash.Web.Controllers
 {
     public class AccountController : Controller
     {
         private readonly ILogger<AccountController> _logger;
+        private readonly Context _context;
 
-        public AccountController(ILogger<AccountController> logger)
+        public AccountController(ILogger<AccountController> logger, Context context)
         {
             _logger = logger;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
+            _context = context;
         }
         
         [HttpGet]
@@ -31,6 +32,7 @@ namespace FoodDash.Web.Controllers
             try
             {
                 // Check login details
+                //_context.Users.Find
 
                 return RedirectToAction("Index", "Home");
             }
@@ -52,6 +54,19 @@ namespace FoodDash.Web.Controllers
         {
             try
             {
+                var newUser = new User
+                {
+                    Address = model.Address,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Password = model.Password,
+                    UserRoleId = (int)UserRoleType.Customer
+                };
+
+                _context.Users.Add(newUser);
+                _context.SaveChanges();
+
                 return RedirectToAction("Login");
             }
             catch (Exception ex)
@@ -66,12 +81,14 @@ namespace FoodDash.Web.Controllers
         {
             try
             {
+                var user = _context.Users.FirstOrDefault();
+
                 var model = new ProfileModel
                 {
-                    Email = "test@gmail.com",
-                    FirstName = "Radu",
-                    LastName = "Teodor",
-                    Address = "Craiova, Str. Sperantei"
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Address = user.Address
                 };
 
                 return View("~/Views/Account/Profile.cshtml", model);
@@ -88,6 +105,7 @@ namespace FoodDash.Web.Controllers
         {
             try
             {
+                //var user = _context.Users.Find(model.userId)
                 return RedirectToAction("Profile");
             }
             catch (Exception ex)

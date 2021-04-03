@@ -1,4 +1,4 @@
-﻿using FoodDash.BusinessLogic.DTO;
+﻿using FoodDash.Web.DataAccess.DTO;
 using FoodDash.Web.Models.Product;
 using System.Collections.Generic;
 
