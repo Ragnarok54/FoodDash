@@ -10,34 +10,16 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodDash.Web.DataAccess.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210403192952_InitialCreate")]
+    [Migration("20210404164224_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("ProductVersion", "3.1.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("FoodDash.Web.DataAccess.Entities.Cart", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "ProductId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Cart");
-                });
 
             modelBuilder.Entity("FoodDash.Web.DataAccess.Entities.Order", b =>
                 {
@@ -240,25 +222,6 @@ namespace FoodDash.Web.DataAccess.Migrations
                     b.ToTable("UserRole");
                 });
 
-            modelBuilder.Entity("FoodDash.Web.DataAccess.Entities.Cart", b =>
-                {
-                    b.HasOne("FoodDash.Web.DataAccess.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FoodDash.Web.DataAccess.Entities.User", "User")
-                        .WithMany("Cart")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("FoodDash.Web.DataAccess.Entities.Order", b =>
                 {
                     b.HasOne("FoodDash.Web.DataAccess.Entities.User", "User")
@@ -266,8 +229,6 @@ namespace FoodDash.Web.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FoodDash.Web.DataAccess.Entities.OrderProduct", b =>
@@ -283,10 +244,6 @@ namespace FoodDash.Web.DataAccess.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Order");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("FoodDash.Web.DataAccess.Entities.Product", b =>
@@ -302,10 +259,6 @@ namespace FoodDash.Web.DataAccess.Migrations
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("ProductType");
-
-                    b.Navigation("Restaurant");
                 });
 
             modelBuilder.Entity("FoodDash.Web.DataAccess.Entities.Restaurant", b =>
@@ -315,8 +268,6 @@ namespace FoodDash.Web.DataAccess.Migrations
                         .HasForeignKey("RestaurantTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("RestaurantType");
                 });
 
             modelBuilder.Entity("FoodDash.Web.DataAccess.Entities.User", b =>
@@ -326,23 +277,6 @@ namespace FoodDash.Web.DataAccess.Migrations
                         .HasForeignKey("UserRoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("UserRole");
-                });
-
-            modelBuilder.Entity("FoodDash.Web.DataAccess.Entities.Order", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("FoodDash.Web.DataAccess.Entities.Restaurant", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("FoodDash.Web.DataAccess.Entities.User", b =>
-                {
-                    b.Navigation("Cart");
                 });
 #pragma warning restore 612, 618
         }

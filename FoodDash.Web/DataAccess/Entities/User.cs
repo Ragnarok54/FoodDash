@@ -29,7 +29,5 @@ namespace FoodDash.Web.DataAccess.Entities
 
         [Required]
         public UserRole UserRole { get; set; }
-
-        public virtual ICollection<Cart> Cart { get; set; }
     }
 }

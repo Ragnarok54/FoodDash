@@ -11,9 +11,9 @@ namespace FoodDash.Web.DataAccess.Migrations
                 name: "ProductType",
                 columns: table => new
                 {
-                    ProductTypeId = table.Column<int>(type: "int", nullable: false)
+                    ProductTypeId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -24,9 +24,9 @@ namespace FoodDash.Web.DataAccess.Migrations
                 name: "RestaurantType",
                 columns: table => new
                 {
-                    RestaurantTypeId = table.Column<int>(type: "int", nullable: false)
+                    RestaurantTypeId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -37,9 +37,9 @@ namespace FoodDash.Web.DataAccess.Migrations
                 name: "UserRole",
                 columns: table => new
                 {
-                    UserRoleId = table.Column<int>(type: "int", nullable: false)
+                    UserRoleId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,13 +50,13 @@ namespace FoodDash.Web.DataAccess.Migrations
                 name: "Restaurant",
                 columns: table => new
                 {
-                    RestaurantId = table.Column<int>(type: "int", nullable: false)
+                    RestaurantId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RestaurantName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RestaurantDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Photo = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    RestaurantTypeId = table.Column<int>(type: "int", nullable: false),
-                    DeliveryTime = table.Column<int>(type: "int", nullable: false)
+                    RestaurantName = table.Column<string>(nullable: false),
+                    RestaurantDescription = table.Column<string>(nullable: true),
+                    Photo = table.Column<byte[]>(nullable: true),
+                    RestaurantTypeId = table.Column<int>(nullable: false),
+                    DeliveryTime = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -73,14 +73,14 @@ namespace FoodDash.Web.DataAccess.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserRoleId = table.Column<int>(type: "int", nullable: false)
+                    Email = table.Column<string>(nullable: false),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
+                    Address = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: false),
+                    UserRoleId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -97,16 +97,16 @@ namespace FoodDash.Web.DataAccess.Migrations
                 name: "Product",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    ProductId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Photo = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    RestaurantId = table.Column<int>(type: "int", nullable: false),
-                    ProductTypeId = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    ServingSize = table.Column<int>(type: "int", nullable: false),
-                    IsVegetarian = table.Column<bool>(type: "bit", nullable: false)
+                    Name = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    Photo = table.Column<byte[]>(nullable: true),
+                    RestaurantId = table.Column<int>(nullable: false),
+                    ProductTypeId = table.Column<int>(nullable: false),
+                    Price = table.Column<int>(nullable: false),
+                    ServingSize = table.Column<int>(nullable: false),
+                    IsVegetarian = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -129,11 +129,11 @@ namespace FoodDash.Web.DataAccess.Migrations
                 name: "Order",
                 columns: table => new
                 {
-                    OrderId = table.Column<int>(type: "int", nullable: false)
+                    OrderId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UserId = table.Column<int>(nullable: false),
+                    Price = table.Column<int>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -147,38 +147,13 @@ namespace FoodDash.Web.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cart",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cart", x => new { x.UserId, x.ProductId });
-                    table.ForeignKey(
-                        name: "FK_Cart_Product_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Product",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Cart_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "OrderProduct",
                 columns: table => new
                 {
-                    OrderProductId = table.Column<int>(type: "int", nullable: false)
+                    OrderProductId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    OrderId = table.Column<int>(nullable: false),
+                    ProductId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -196,11 +171,6 @@ namespace FoodDash.Web.DataAccess.Migrations
                         principalColumn: "ProductId",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Cart_ProductId",
-                table: "Cart",
-                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Order_UserId",
@@ -240,9 +210,6 @@ namespace FoodDash.Web.DataAccess.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Cart");
-
             migrationBuilder.DropTable(
                 name: "OrderProduct");
 
