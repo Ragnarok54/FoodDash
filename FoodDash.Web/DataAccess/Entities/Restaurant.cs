@@ -20,13 +20,11 @@ namespace FoodDash.Web.DataAccess.Entities
         [Required]
         public int RestaurantTypeId { get; set; }
   
-        [Required]
         public virtual RestaurantType RestaurantType { get; set; }
 
         [Required]
         public int DeliveryTime { get; set; }
         
-        [Required]
         public virtual ICollection<Product> Products { get; set; }
     
     }

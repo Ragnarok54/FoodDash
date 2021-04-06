@@ -27,7 +27,6 @@ namespace FoodDash.Web.DataAccess.Entities
         [Required]
         public int UserRoleId { get; set; }
 
-        [Required]
-        public UserRole UserRole { get; set; }
+        public virtual UserRole UserRole { get; set; }
     }
 }
