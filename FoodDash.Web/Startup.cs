@@ -1,15 +1,15 @@
 using FoodDash.Web.DataAccess;
+using FoodDash.Web.DataAccess.Entities;
+using FoodDash.Web.DataAccess.Repository.Concrete;
+using FoodDash.Web.DataAccess.Repository.Interfaces;
+using FoodDash.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace FoodDash.Web
 {
@@ -28,6 +28,17 @@ namespace FoodDash.Web
             services.AddControllersWithViews();
 
             services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnectionString")));
+
+            // Add repositories
+            services.AddScoped<IRepository<Restaurant>, Repository<Restaurant>>();
+            services.AddScoped<IRepository<Order>, OrderRepository>();
+            services.AddScoped<IRepository<Product>, Repository<Product>>();
+            services.AddScoped<IRepository<ProductType>, Repository<ProductType>>();
+
+            // Add services
+            services.AddScoped<RestaurantService>();
+            services.AddScoped<OrderService>();
+            services.AddScoped<ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

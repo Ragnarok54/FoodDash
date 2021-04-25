@@ -1,7 +1,7 @@
-﻿@model FoodDash.Web.Models.Restaurant.RestaurantModel
+﻿@model FoodDash.Web.Models.Product.ProductModel
 
 @{
-    ViewData["Title"] = "Add a new restaurant in FoodDash";
+    ViewData["Title"] = Model.ProductId > 0 ? "Edit product" : "Add a product for this restaurant";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,20 +11,20 @@
             <i class="fa fa-star roundicon star"></i>
             <div class="contactstyle topform" style="margin-top: 2em">
                 <h4 style="text-align: center">
-                    @if (Model.RestaurantId > 0)
+                    @if (Model.ProductId > 0)
                     {
-                        <text>Edit restaraunt in FoodDash</text>
+                        <text>Edit product</text>
                     }
                     else
                     {
-                        <text>Add a new restaurant in FoodDash</text>
+                        <text>Add a new product</text>
                     }
                 </h4>
                 <hr />
                 <form asp-action="Edit" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                    <input asp-for="RestaurantId" hidden />
+                    <input asp-for="ProductId" hidden />
 
                     <div class="form-group">
                         <label asp-for="Name" class="control-label"></label>
@@ -39,15 +39,27 @@
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="Type" class="control-label"></label>
-                        <input asp-for="Type" class="form-control" />
-                        <span asp-validation-for="Type" class="text-danger"></span>
+                        <label asp-for="ProductTypeId" class="control-label"></label>
+                        <select asp-for="ProductTypeId" class="form-control" asp-items="ViewBag.ProductTypeId"></select>
+                        <span asp-validation-for="ProductTypeId" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="DeliveryTime" class="control-label"></label>
-                        <input asp-for="DeliveryTime" class="form-control" />
-                        <span asp-validation-for="DeliveryTime" class="text-danger"></span>
+                        <label asp-for="Price" class="control-label"></label>
+                        <input asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ServingSize" class="control-label"></label>
+                        <input asp-for="ServingSize" class="form-control" />
+                        <span asp-validation-for="ServingSize" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="IsVegetarian" class="control-label"></label>
+                        <input asp-for="IsVegetarian" class="form-control" type="checkbox" />
+                        <span asp-validation-for="IsVegetarian" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">

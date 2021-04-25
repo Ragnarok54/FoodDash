@@ -16,12 +16,10 @@ namespace FoodDash.Web.DataAccess.Entities
 
         public virtual User User {get; set;}
 
-        [Required]
-        public int Price { get; set; }
+        public int? Price { get; set; }
 
-        [Required]
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
 
-        public virtual ICollection<OrderProduct> Products { get; set; }
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
     }
 }

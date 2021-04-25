@@ -1,4 +1,6 @@
-﻿@model FoodDash.Web.Models.Restaurant.RestaurantModel
+﻿@using System.Text 
+
+@model FoodDash.Web.Models.Restaurant.RestaurantModel
 
 <style>
     .time--@Model.RestaurantId::after {
@@ -8,8 +10,8 @@
 
 <div class="restaurant-container" id="@Model.RestaurantId">
     <div class="restaurant-card">
-        <div class="restaurant-card-preview" style="background: url('../../images/kfc.jpg') no-repeat center center; background-size: cover">
-            @*<img src="~/images/kfc.jpg"/>*@
+        <div class="restaurant-card-preview" style="background: url(@Url.Action("GetPhoto", "Restaurant", new { restaurantId = Model.RestaurantId})) no-repeat center center; background-size: cover">
+            <img src="@Url.Action("GetPhoto", "Restaurant", new { restaurantId = Model.RestaurantId})"/>
             @*<h6>restaurant-card</h6>
             <h2>JavaScript Fundamentals</h2>*@
             @*<a href="#">View all chapters <i class="fas fa-chevron-right"></i></a>*@

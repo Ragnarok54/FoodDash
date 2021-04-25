@@ -5,17 +5,18 @@
 
     var lastProductCategoryId = 0;
 }
-<header>
 
-</header>
+<div class="center" style="margin-top: 2rem">
+    <div style="text-align: center; padding-right: 70px; margin-bottom: 1rem">
+        <input type="button" value="Add product" class="btn btn-primary" onclick="window.location.href='@Url.Action("Add", "Product", new { restaurantId = Model.RestaurantId})'"/>
+    </div>
 
-<div class="center" style="margin-top: 20%">
     @foreach (var product in Model.Products)
     {
-        if (lastProductCategoryId != product.ProductCategoryId)
+        if (lastProductCategoryId != product.ProductTypeId)
         {
             //Show a line break with section name
-            lastProductCategoryId = product.ProductCategoryId;
+            lastProductCategoryId = product.ProductTypeId;
         }
 
         @await Html.PartialAsync("~/Views/Product/_ProductCard.cshtml", product)

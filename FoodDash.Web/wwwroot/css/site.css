@@ -250,14 +250,13 @@ h1.toptitle {
 
 .center {
     position: absolute;
-    top: 20%;
     left: 50%;
-    -webkit-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%);
     width: 50%;
 }
 
 .card {
-    width: 450px;
+    width: 45%;
     height: 250px;
     background-color: #fff;
     background: linear-gradient(#f8f8f8, #fff);
@@ -335,7 +334,7 @@ h1.toptitle {
 }
 
 .card .additional .more-info {
-    width: 300px;
+    width: 75%;
     float: left;
     position: absolute;
     left: 150px;
@@ -406,7 +405,7 @@ h1.toptitle {
 }
 
 .card .general {
-    width: 300px;
+    width: 75%;
     height: 100%;
     position: absolute;
     top: 0;
