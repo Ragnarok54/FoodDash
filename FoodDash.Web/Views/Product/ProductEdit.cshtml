@@ -25,6 +25,7 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <input asp-for="ProductId" hidden />
+                    <input asp-for="RestaurantId" hidden />
 
                     <div class="form-group">
                         <label asp-for="Name" class="control-label"></label>
@@ -64,15 +65,15 @@
 
                     <div class="form-group">
                         <label asp-for="Photo" class="control-label"></label>
-                        <input asp-for="Photo" class="form-control" type="file" />
+                        <input asp-for="Photo" class="form-control" type="file" style="padding: 0px; border: none; border-radius: 0px;"/>
                         <span asp-validation-for="Photo" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        @if (Model.RestaurantId > 0)
+                        @if (Model.ProductId > 0)
                         {
                             <input type="submit" value="Save changes" class="btn btn-primary" />
-                            <input type="button" value="Delete restaurant" class="btn btn-danger" onclick="window.location.href='@Url.Action("Delete", "Restaurant", new { restaurantId = Model.RestaurantId})'" />
+                            <input type="button" value="Delete product" class="btn btn-danger" onclick="window.location.href='@Url.Action("Delete", "Product", new { productId = Model.ProductId})'" />
                         }
                         else
                         {

@@ -11,6 +11,8 @@ namespace FoodDash.Web.Models.Restaurant
 
         public string Description { get; set; }
 
+        public int TypeId { get; set; }
+        
         public string Type { get; set; }
 
         [DisplayName("Delivery time")]

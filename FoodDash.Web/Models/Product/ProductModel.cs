@@ -18,12 +18,14 @@ namespace FoodDash.Web.Models.Product
 
         public string Description { get; set; }
 
+        [DisplayName("Serving Size")]
         public int ServingSize { get; set; }
 
         [DisplayName("Is the product vegetarian")]
         public bool IsVegetarian { get; set; }
 
         public IFormFile Photo { get; set; }
+        
+        public byte[] PhotoBytes { get; set; }
     }
 }
-//            ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes, "ProductTypeId", "Name", product.ProductTypeId);

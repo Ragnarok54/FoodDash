@@ -1,10 +1,18 @@
 ﻿@model FoodDash.Web.Models.Product.ProductModel
 
+@{
+    var base64 = Model.PhotoBytes != null ? Convert.ToBase64String(Model.PhotoBytes) : string.Empty;
+    var imgSrc = string.IsNullOrEmpty(base64) ? string.Empty : String.Format("data:image/jpg;base64,{0}", base64);
+}
+
 <div class="card">
     <div class="additional">
         <div class="user-card">
             <div>
-                <img class="product-thumbnail"src="~/images/kfc.jpg" />
+                @if (!string.IsNullOrEmpty(imgSrc))
+                {
+                    <img class="product-thumbnail" src="@imgSrc" />
+                }
             </div>
             <div class="points center" style="text-align:center">
                 @Model.Price LEI
@@ -38,11 +46,16 @@
                     <i class="fa fa-plus" style="cursor: pointer"></i>
                     <div class="value">Cart</div>
                 </div>
+                <div>
+                    <div class="title">Edit</div>
+                    <i class="fa fa-edit" style="cursor: pointer" onclick="window.location.href='@Url.Action("Edit", "Product", new { productId = Model.ProductId})'"></i>
+                    <div class="value">Product</div>
+                </div>
             </div>
         </div>
     </div>
     <div class="general">
         <h1>@Model.Name</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a volutpat mauris, at molestie lacus. Nam vestibulum sodales odio ut pulvinar.</p>
+        <p>@Model.Description</p>
     </div>
 </div>

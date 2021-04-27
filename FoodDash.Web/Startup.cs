@@ -30,7 +30,8 @@ namespace FoodDash.Web
             services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnectionString")));
 
             // Add repositories
-            services.AddScoped<IRepository<Restaurant>, Repository<Restaurant>>();
+            services.AddScoped<IRepository<Restaurant>, RestaurantRepository>();
+            services.AddScoped<IRepository<RestaurantType>, Repository<RestaurantType>>();
             services.AddScoped<IRepository<Order>, OrderRepository>();
             services.AddScoped<IRepository<Product>, Repository<Product>>();
             services.AddScoped<IRepository<ProductType>, Repository<ProductType>>();

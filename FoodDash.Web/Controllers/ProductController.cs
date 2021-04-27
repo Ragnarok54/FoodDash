@@ -22,7 +22,7 @@ namespace FoodDash.Web.Controllers
             _productService = productService;
         }
 
-        public IActionResult Add (int restaurantId)
+        public IActionResult Add(int restaurantId)
         {
             try
             {
@@ -31,8 +31,8 @@ namespace FoodDash.Web.Controllers
                     RestaurantId = restaurantId,
                     ProductTypeId = 1
                 };
-                var productTypes = _productService.GetProductTypes();
 
+                var productTypes = _productService.GetProductTypes();
                 ViewData["ProductTypeId"] = new SelectList(productTypes, "ProductTypeId", "Name", 1);
 
                 return View("~/Views/Product/ProductEdit.cshtml", model);
@@ -62,6 +62,9 @@ namespace FoodDash.Web.Controllers
                     IsVegetarian = product.IsVegetarian
                 };
 
+                var productTypes = _productService.GetProductTypes();
+                ViewData["ProductTypeId"] = new SelectList(productTypes, "ProductTypeId", "Name", product.ProductTypeId);
+
                 return View("~/Views/Product/ProductEdit.cshtml", model);
             }
             catch(Exception ex)
@@ -76,8 +79,10 @@ namespace FoodDash.Web.Controllers
         {
             try
             {
+
                 var product = new Product
                 {
+                    RestaurantId = model.RestaurantId,
                     ProductId = model.ProductId,
                     Name = model.Name,
                     Description = model.Description,
@@ -86,10 +91,23 @@ namespace FoodDash.Web.Controllers
                     ServingSize = model.ServingSize,
                     IsVegetarian = model.IsVegetarian
                 };
-                var productTypes = _productService.GetProductTypes();
 
-                ViewData["ProductTypeId"] = new SelectList(productTypes, "ProductTypeId", "Name", product.ProductTypeId);
-                _productService.Edit(product);
+                if (model.Photo != null)
+                {
+                    using (var br = new BinaryReader(model.Photo.OpenReadStream()))
+                    {
+                        product.Photo = br.ReadBytes((int)model.Photo.Length);
+                    }
+                }
+
+                if (product.ProductId > 0)
+                {
+                    _productService.Edit(product);
+                }
+                else
+                {
+                    _productService.Add(product);
+                }
 
                 return RedirectToAction("Details", "Restaurant", new { restaurantId = model.RestaurantId});
             }

@@ -1,6 +1,9 @@
-﻿@using System.Text 
+﻿@model FoodDash.Web.Models.Restaurant.RestaurantModel
 
-@model FoodDash.Web.Models.Restaurant.RestaurantModel
+@{
+    var base64 = Model.PhotoBytes != null ? Convert.ToBase64String(Model.PhotoBytes) : string.Empty;
+    var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+}
 
 <style>
     .time--@Model.RestaurantId::after {
@@ -10,10 +13,9 @@
 
 <div class="restaurant-container" id="@Model.RestaurantId">
     <div class="restaurant-card">
-        <div class="restaurant-card-preview" style="background: url(@Url.Action("GetPhoto", "Restaurant", new { restaurantId = Model.RestaurantId})) no-repeat center center; background-size: cover">
-            <img src="@Url.Action("GetPhoto", "Restaurant", new { restaurantId = Model.RestaurantId})"/>
+        <div class="restaurant-card-preview" style="background: url(@imgSrc) no-repeat center center; background-size: cover">
             @*<h6>restaurant-card</h6>
-            <h2>JavaScript Fundamentals</h2>*@
+                <h2>JavaScript Fundamentals</h2>*@
             @*<a href="#">View all chapters <i class="fas fa-chevron-right"></i></a>*@
         </div>
         <div class="restaurant-card-info">

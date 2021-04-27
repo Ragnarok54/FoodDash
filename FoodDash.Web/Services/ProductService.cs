@@ -36,6 +36,7 @@ namespace FoodDash.Web.Services
             existingProduct.IsVegetarian = product.IsVegetarian;
             existingProduct.ProductTypeId = product.ProductTypeId;
             existingProduct.ServingSize = product.ServingSize;
+            existingProduct.Photo = product.Photo;
 
             _productRepository.SaveChanges();
         }

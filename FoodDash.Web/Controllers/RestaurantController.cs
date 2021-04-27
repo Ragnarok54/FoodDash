@@ -2,10 +2,11 @@
 using FoodDash.Web.Models.Restaurant;
 using FoodDash.Web.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 
 namespace FoodDash.Web.Controllers
 {
@@ -23,8 +24,10 @@ namespace FoodDash.Web.Controllers
         [Route("Restaurants")]
         public IActionResult Index()
         {
-            var model = new HomeModel();
-            model.Restaurants = _restaurantService.GetAll();
+            var model = new HomeModel
+            {
+                Restaurants = _restaurantService.GetAll()
+            };
 
             return View("~/Views/Restaurant/Home.cshtml", model);
         }
@@ -34,96 +37,24 @@ namespace FoodDash.Web.Controllers
         {
             try
             {
+                var restaurant = _restaurantService.GetRestaurantWithDetails(restaurantId);
+
                 var model = new RestaurantDetailsModel
                 {
                     RestaurantId = restaurantId,
+                    Products = restaurant.Products.Select(p => new ProductModel
+                    {
+                        RestaurantId = p.RestaurantId,
+                        ProductId = p.ProductId,
+                        Description = p.Description,
+                        Name = p.Name,
+                        PhotoBytes = p.Photo,
+                        Price = p.Price,
+                        ProductTypeId = p.ProductTypeId,
+                        ServingSize = p.ServingSize,
+                        IsVegetarian = p.IsVegetarian
+                    }),
                 };
-                var products = new List<ProductModel>
-                {
-                    new ProductModel
-                    {
-                        Name = "Meniu 5 crispy strips",
-                        Description = "5 crispy strips",
-                        IsVegetarian = false,
-                        RestaurantId = 2,
-                        ServingSize = 300,
-                        Price = 28
-                    },
-                    new ProductModel
-                    {
-                        Description = "5 crispy strips",
-                        IsVegetarian = false,
-                        RestaurantId = 2,
-                        ServingSize = 300,
-                        Price = 28
-                    },
-                    new ProductModel
-                    {
-                        Description = "5 crispy strips",
-                        IsVegetarian = false,
-                        RestaurantId = 2,
-                        ServingSize = 300,
-                        Price = 28
-                    },
-                    new ProductModel
-                    {
-                        Description = "5 crispy strips",
-                        IsVegetarian = true,
-                        RestaurantId = 2,
-                        ServingSize = 300,
-                        Price = 28
-                    },
-                    new ProductModel
-                    {
-                        Description = "5 crispy strips",
-                        IsVegetarian = false,
-                        RestaurantId = 2,
-                        ServingSize = 300,
-                        Price = 28
-                    },
-                                        new ProductModel
-                    {
-                        Description = "5 crispy strips",
-                        IsVegetarian = false,
-                        RestaurantId = 2,
-                        ServingSize = 300,
-                        Price = 28
-                    },
-                                                            new ProductModel
-                    {
-                        Description = "5 crispy strips",
-                        IsVegetarian = false,
-                        RestaurantId = 2,
-                        ServingSize = 300,
-                        Price = 28
-                    },
-                                                                                new ProductModel
-                    {
-                        Description = "5 crispy strips",
-                        IsVegetarian = false,
-                        RestaurantId = 2,
-                        ServingSize = 300,
-                        Price = 28
-                    },
-                                                                                                    new ProductModel
-                    {
-                        Description = "5 crispy strips",
-                        IsVegetarian = false,
-                        RestaurantId = 2,
-                        ServingSize = 300,
-                        Price = 28
-                    },
-                                                                                                                        new ProductModel
-                    {
-                        Description = "5 crispy strips",
-                        IsVegetarian = false,
-                        RestaurantId = 2,
-                        ServingSize = 300,
-                        Price = 28
-                    },
-                };
-
-                model.Products = products;
 
                 return View("~/Views/Restaurant/RestaurantDetails.cshtml", model);
             }
@@ -140,6 +71,7 @@ namespace FoodDash.Web.Controllers
             try
             {
                 var model = new RestaurantModel();
+                var restaurantTypes = _restaurantService.GetRestaurantTypes();
 
                 if (restaurantId > 0)
                 {
@@ -149,11 +81,15 @@ namespace FoodDash.Web.Controllers
                     {
                         RestaurantId = restaurant.RestaurantId,
                         Name = restaurant.RestaurantName,
+                        TypeId = restaurant.RestaurantTypeId,
+                        Type = restaurantTypes.First(rt => rt.RestaurantTypeId == restaurant.RestaurantTypeId).Name,
                         Description = restaurant.RestaurantDescription,
                         DeliveryTime = restaurant.DeliveryTime,
-                        DeliveryTimePercentage = restaurant.DeliveryTime == 0 ? 0 : 100 * restaurant.DeliveryTime / 120
+                        DeliveryTimePercentage = restaurant.DeliveryTime == 0 ? 0 : Math.Min(100 * restaurant.DeliveryTime / 120, 100)
                     };
                 }
+
+                ViewData["RestaurantTypeId"] = new SelectList(restaurantTypes, "RestaurantTypeId", "Name", 1);
 
                 return View("~/Views/Restaurant/RestaurantEdit.cshtml", model);
             }
@@ -199,21 +135,6 @@ namespace FoodDash.Web.Controllers
             {
                 _logger.LogError(ex, "Failed to delete retaurant with id " + restaurantId);
                 return RedirectToAction("Edit", restaurantId);
-            }
-        }
-
-        public IActionResult GetPhoto(int restaurantId)
-        {
-            try
-            {
-                var restaurant = _restaurantService.GetRestaurant(restaurantId);
-
-                return File(restaurant.Photo, "image/jpg");
-            }
-            catch(Exception ex)
-            {
-                _logger.LogError(ex, "Failed to get picture for restaurant with id " + restaurantId);
-                return RedirectToAction("Index");
             }
         }
     }

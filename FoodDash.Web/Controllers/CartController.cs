@@ -1,4 +1,5 @@
-﻿using FoodDash.Web.Models.Account;
+﻿using FoodDash.Web.DataAccess.Entities;
+using FoodDash.Web.Models.Account;
 using FoodDash.Web.Models.Cart;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -58,5 +59,9 @@ namespace FoodDash.Web.Controllers
             return View("~/Views/Cart/Cart.cshtml", model);
         }
         
+        public void Add(int productId)
+        {
+
+        }
     }
 }
