@@ -12,43 +12,49 @@
             <div class="contactstyle topform" style="margin-top: 2em">
                 <h4 style="text-align: center">My profile with FoodDash</h4>
                 <hr />
-                <form asp-action="Profile">
+                <form asp-action="Profile" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="form-group">
                         <label asp-for="Email" class="control-label"></label>
-                        <input asp-for="Email" class="form-control" disabled/>
+                        <input asp-for="Email" class="form-control" disabled />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
                         <label asp-for="FirstName" class="control-label"></label>
-                        <input asp-for="FirstName" class="form-control" disabled/>
+                        <input asp-for="FirstName" class="form-control" disabled />
                         <span asp-validation-for="FirstName" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
                         <label asp-for="LastName" class="control-label"></label>
-                        <input asp-for="LastName" class="form-control" disabled/>
+                        <input asp-for="LastName" class="form-control" disabled />
                         <span asp-validation-for="LastName" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
                         <label asp-for="Address" class="control-label"></label>
-                        <input asp-for="Address" class="form-control" disabled/>
+                        <input asp-for="Address" class="form-control" disabled />
                         <span asp-validation-for="Address" class="text-danger"></span>
                     </div>
 
+                    <div class="form-group" style="display: none;" id="photo-btn">
+                        <label asp-for="Photo" class="control-label"></label>
+                        <input asp-for="Photo" class="form-control" disabled style="padding: 0px; border: none; border-radius: 0px;"/>
+                        <span asp-validation-for="Photo" class="text-danger"></span>
+                    </div>
+
                     <div class="form-group">
-                        <input id="edit-profile-save-btn" type="submit" value="Save" class="btn btn-primary" style="display:none"/>
+                        <input id="edit-profile-save-btn" type="submit" value="Save" class="btn btn-primary" style="display:none" />
                         <div style="margin-top: 1em; text-align: center;">
                             <a id="edit-link"
-                               style="color: var(--fd-orange); cursor: pointer" 
+                               style="color: var(--fd-orange); cursor: pointer"
                                onclick="toggleEdit()">
                                 Something doesn't look right? Edit your details!
                             </a>
                             <a id="cancel-link"
-                               style="color: var(--fd-orange); display: none" 
+                               style="color: var(--fd-orange); display: none"
                                href="@Url.Action("Profile", "Account")">
                                 Everything looks ok? Cancel!
                             </a>
@@ -66,10 +72,12 @@
         var editLink = document.getElementById('edit-link');
         var inputFields = document.getElementsByClassName('form-control');
         var saveBtn = document.getElementById('edit-profile-save-btn');
+        var photoBtn = document.getElementById('photo-btn');
         
         editLink.style.display = "none";
         cancelLink.style.display = "block";
         saveBtn.style.display = "block";
+        photoBtn.style.display = "block";
 
         for (var index = 0; index < inputFields.length; index++) {
             inputFields[index].disabled = false;

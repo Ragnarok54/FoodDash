@@ -1,11 +1,11 @@
 ﻿using FoodDash.Web.Models.Product;
 using FoodDash.Web.Models.Restaurant;
 using FoodDash.Web.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace FoodDash.Web.Controllers
@@ -22,6 +22,7 @@ namespace FoodDash.Web.Controllers
         }
 
         [Route("Restaurants")]
+        [Authorize]
         public IActionResult Index()
         {
             var model = new HomeModel
@@ -33,6 +34,7 @@ namespace FoodDash.Web.Controllers
         }
 
         [Route("Restaurant")]
+        [Authorize]
         public IActionResult Details(int restaurantId)
         {
             try
@@ -66,6 +68,7 @@ namespace FoodDash.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int restaurantId)
         {
             try
@@ -101,6 +104,7 @@ namespace FoodDash.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(RestaurantModel model)
         {
             try
@@ -123,6 +127,7 @@ namespace FoodDash.Web.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int restaurantId)
         {
             try

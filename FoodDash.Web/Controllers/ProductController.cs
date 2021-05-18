@@ -2,6 +2,7 @@
 using FoodDash.Web.Models.Product;
 using FoodDash.Web.Models.Restaurant;
 using FoodDash.Web.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
@@ -22,6 +23,7 @@ namespace FoodDash.Web.Controllers
             _productService = productService;
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Add(int restaurantId)
         {
             try
@@ -45,6 +47,7 @@ namespace FoodDash.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int productId)
         {
             try
@@ -75,6 +78,7 @@ namespace FoodDash.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(ProductModel model)
         {
             try

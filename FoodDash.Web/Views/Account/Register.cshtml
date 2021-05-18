@@ -14,7 +14,7 @@
                     Create an account for FoodDash
                 </h4>
                 <hr />
-                <form asp-action="Register">
+                <form asp-action="Register" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="form-group">
@@ -45,6 +45,12 @@
                         <label asp-for="Address" class="control-label"></label>
                         <input asp-for="Address" class="form-control" />
                         <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Photo" class="control-label"></label>
+                        <input asp-for="Photo" class="form-control" style="padding: 0px; border: none; border-radius: 0px;"/>
+                        <span asp-validation-for="Photo" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">

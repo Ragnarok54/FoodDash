@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace FoodDash.Web.Models.Account
 {
@@ -16,7 +17,8 @@ namespace FoodDash.Web.Models.Account
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [Required]
         public string Address { get; set; }
+
+        public IFormFile Photo { get; set; }
     }
 }

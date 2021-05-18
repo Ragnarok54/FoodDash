@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using FoodDash.Web.DataAccess.Entities
+@using System.Security.Claims
+
+@await Component.InvokeAsync("NToastNotify")
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,7 +15,7 @@
     <title>@ViewData["Title"] - FoodDash</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    
+
     <script src="https://kit.fontawesome.com/77f502f12f.js" crossorigin="anonymous"></script>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
@@ -16,43 +25,70 @@
 <body>
     <header>
         <nav class="sticky navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
-            <a href="@Url.Action("Index")" class="navbar-brand" style="width: 5%">
-                <img src="/images/logo.png" title="FoodDashLogoo" alt="" style="width: 70%"/>
+            <a href="@Url.Action("Index", "Restaurant")" class="navbar-brand" style="width: 5%">
+                <img src="/images/logo.png" title="FoodDashLogoo" alt="" style="width: 70%" />
             </a>
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FoodDash</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Restaurant" asp-action="Index">FoodDash</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="Index">Restaurants</a>
-                        </li>                        
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="Edit" style="margin-left: -10px">
-                                <i class="fa fa-plus"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Cart</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="Index">Restaurants</a>
+                            </li>
+                            @if (User.FindFirstValue(ClaimTypes.Role) == "Admin")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="Edit" style="margin-left: -10px">
+                                        <i class="fa fa-plus"></i>
+                                    </a>
+                                </li>
+                            }
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Cart</a>
+                            </li>
+
+                            <li class="nav-item" style="align-self: center; margin-left:auto">
+                                <img src="@Url.Action("GetUserPhoto", "Account")" style="width: 40px; height: initial; float: right;"/>
+                            </li>
+
+                            <li class="nav-item" style="float: right; margin-right:auto;">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Profile">
+                                    <i class="fa fa-user"></i>
+                                    My profile (@UserManager.GetUserName(User))
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                        }
+
                     </ul>
+                    @*<partial name="_LoginPartial" />*@
                 </div>
             </div>
-            <div>
-                <a class="nav-link text-dark" asp-controller="Account" asp-action="Profile">
-                    <i class="fa fa-user"></i>
-                    My profile
-                </a>
-            </div>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <div>
+                    <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">
+                        <i class="fa sign-out-alt"></i>
+                        Logout
+                    </a>
+                </div>
+            }
         </nav>
     </header>
     <div class="container">
@@ -62,10 +98,10 @@
     </div>
 
     @*<footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - FoodDash - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>*@
+            <div class="container">
+                &copy; 2021 - FoodDash - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>*@
 
 </body>
 </html>

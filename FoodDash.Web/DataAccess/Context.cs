@@ -1,9 +1,10 @@
 ﻿using FoodDash.Web.DataAccess.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FoodDash.Web.DataAccess
 {
-    public class Context : DbContext
+    public class Context : IdentityDbContext<User>
     {
         public Context(DbContextOptions<Context> options) : base(options) { }
 
@@ -13,7 +14,5 @@ namespace FoodDash.Web.DataAccess
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<RestaurantType> RestaurantTypes { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
     }
 }

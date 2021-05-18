@@ -1,18 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FoodDash.Web.DataAccess.Entities
 {
     [Table("User")]
-    public class User
+    public class User : IdentityUser
     {
-        [Key]
-        public int UserId { get; set; }
-
-        [Required]
-        public string Email { get; set; }
-
         [Required]
         public string FirstName { get; set; }
 
@@ -21,12 +15,8 @@ namespace FoodDash.Web.DataAccess.Entities
 
         public string Address { get; set; }
 
-        [Required]
-        public string Password { get; set; }
+        public byte[] Photo { get; set; }
 
-        [Required]
-        public int UserRoleId { get; set; }
-
-        public virtual UserRole UserRole { get; set; }
+        public virtual IdentityRole UserRole { get; set; }
     }
 }

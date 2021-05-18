@@ -6,19 +6,47 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DataAccess\Migrations\20210425163848_DatabaseChanges.cs" />
-    <Compile Remove="DataAccess\Migrations\20210425163848_DatabaseChanges.Designer.cs" />
+    <Compile Remove="Migrations\**" />
+    <Content Remove="Migrations\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <None Remove="Migrations\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.13" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.13" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.13" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.13">
+    <Compile Remove="DataAccess\Migrations\20210404164224_InitialCreate.cs" />
+    <Compile Remove="DataAccess\Migrations\20210404164224_InitialCreate.Designer.cs" />
+    <Compile Remove="DataAccess\Migrations\20210425163848_DatabaseChanges.cs" />
+    <Compile Remove="DataAccess\Migrations\20210425163848_DatabaseChanges.Designer.cs" />
+    <Compile Remove="DataAccess\Migrations\20210425164837_DatabaseChanges.cs" />
+    <Compile Remove="DataAccess\Migrations\20210425164837_DatabaseChanges.Designer.cs" />
+    <Compile Remove="DataAccess\Migrations\20210516193040_IntegrateIdentity.cs" />
+    <Compile Remove="DataAccess\Migrations\20210516193040_IntegrateIdentity.Designer.cs" />
+    <Compile Remove="DataAccess\Migrations\20210516195813_InitialCreate.cs" />
+    <Compile Remove="DataAccess\Migrations\20210516195813_InitialCreate.Designer.cs" />
+    <Compile Remove="DataAccess\Migrations\20210517170717_InitialCreate.cs" />
+    <Compile Remove="DataAccess\Migrations\20210517170717_InitialCreate.Designer.cs" />
+    <Compile Remove="DataAccess\Migrations\20210517171534_InitialCreate.cs" />
+    <Compile Remove="DataAccess\Migrations\20210517171534_InitialCreate.Designer.cs" />
+    <Compile Remove="DataAccess\Migrations\20210517171925_InitialCreate.cs" />
+    <Compile Remove="DataAccess\Migrations\20210517171925_InitialCreate.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.15" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.15" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.15" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.15" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.15" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.15">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="NToastNotify" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DataAccess\Migrations\" />
   </ItemGroup>
 
 </Project>

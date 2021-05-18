@@ -10,7 +10,7 @@ namespace FoodDash.Web.DataAccess.Repository.Concrete
     {
         public OrderRepository(Context context) : base(context) { }
 
-        public Order GetOrderDetails(int userId)
+        public Order GetOrderDetails(string userId)
         {
             return _context.Orders.Include(o => o.OrderProducts)
                                   .ThenInclude(op => op.Product)
@@ -18,7 +18,7 @@ namespace FoodDash.Web.DataAccess.Repository.Concrete
                                   .SingleOrDefault(o => o.UserId == userId);
         }
 
-        public void AddToOrder(int productId, int userId)
+        public void AddToOrder(int productId, string userId)
         {
             var order = _context.Orders.SingleOrDefault(o => o.UserId == userId);
             var product = _context.Products.SingleOrDefault(p => p.ProductId == productId);

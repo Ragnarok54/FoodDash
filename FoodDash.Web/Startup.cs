@@ -5,6 +5,7 @@ using FoodDash.Web.DataAccess.Repository.Interfaces;
 using FoodDash.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,20 +27,27 @@ namespace FoodDash.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages();
 
             services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnectionString")));
+
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<Context>();
 
             // Add repositories
             services.AddScoped<IRepository<Restaurant>, RestaurantRepository>();
             services.AddScoped<IRepository<RestaurantType>, Repository<RestaurantType>>();
             services.AddScoped<IRepository<Order>, OrderRepository>();
             services.AddScoped<IRepository<Product>, Repository<Product>>();
+            services.AddScoped<IRepository<User>, Repository<User>>();
             services.AddScoped<IRepository<ProductType>, Repository<ProductType>>();
 
             // Add services
             services.AddScoped<RestaurantService>();
+            services.AddScoped<UserService>();
             services.AddScoped<OrderService>();
             services.AddScoped<ProductService>();
+
+            services.AddMvc().AddNToastNotifyToastr();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,13 +68,17 @@ namespace FoodDash.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseNToastNotify();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
