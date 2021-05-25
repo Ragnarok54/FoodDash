@@ -37,6 +37,7 @@ namespace FoodDash.Web
             services.AddScoped<IRepository<Restaurant>, RestaurantRepository>();
             services.AddScoped<IRepository<RestaurantType>, Repository<RestaurantType>>();
             services.AddScoped<IRepository<Order>, OrderRepository>();
+            services.AddScoped<IRepository<OrderProduct>, Repository<OrderProduct>>();
             services.AddScoped<IRepository<Product>, Repository<Product>>();
             services.AddScoped<IRepository<User>, Repository<User>>();
             services.AddScoped<IRepository<ProductType>, Repository<ProductType>>();

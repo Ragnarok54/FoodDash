@@ -43,7 +43,7 @@
                 }
                 <div>
                     <div class="title">Add to</div>
-                    <i class="fa fa-plus" style="cursor: pointer"></i>
+                    <i id="add_to_cart_btn_@Model.ProductId" onclick="window.location.href='@Url.Action("Add", "Order", new { productId = Model.ProductId, restaurantId = Model.RestaurantId})'" class="fa fa-plus" style="cursor: pointer"></i>
                     <div class="value">Cart</div>
                 </div>
                 <div>
@@ -59,3 +59,30 @@
         <p>@Model.Description</p>
     </div>
 </div>
+
+<script type='text/javascript'>
+    @*$("button").click(
+        function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: @Url.Action("Order", "Add", new { productId = Model.ProductId}),
+                success: function (result) {
+                },
+                error: function (result) {
+                }
+            });
+        }
+    );*@
+    x : function x() {
+        $.ajax({
+            type: "POST",
+            url: @Url.Action("Add", "Order", new { productId = Model.ProductId}),
+            success: function (result) {
+            },
+            error: function (result) {
+            }
+        });
+    }
+
+</script>

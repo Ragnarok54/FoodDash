@@ -22,3 +22,21 @@
         @await Html.PartialAsync("~/Views/Product/_ProductCard.cshtml", product)
     }
 </div>
+
+<script>
+    @foreach(var product in Model.Products)
+    {
+        <text>
+        document.getElementById("add_to_cart_btn_@product.ProductId").addEventListener("click", function() {
+                  $.ajax({
+            type: "POST",
+                url: @Url.Action("Order", "Add", new { productId = product.ProductId }),
+                success: function(result) {
+                },
+                error: function(result) {
+                }
+            });
+        });
+        </text>
+    }
+</script>

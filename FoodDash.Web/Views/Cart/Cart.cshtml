@@ -4,7 +4,7 @@
     ViewData["Title"] = "Cart";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    var productCount = Model.Products.Count();
+    var productCount = Model.Products?.Count();
 }
 
 <link rel="stylesheet" href="~/css/cart.css" />
@@ -29,31 +29,38 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var product in Model.Products)
+                @if (Model.Products != null)
                 {
-                    <tr>
-                        <th scope="row" class="border-0">
-                            <div class="p-2">
-                                <img src="/images/kfc.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">
-                                <div class="ml-3 d-inline-block align-middle">
-                                    <h5 class="mb-0">
-                                        <a class="text-dark d-inline-block align-middle">@product.ProductName</a>
-                                    </h5>
-                                    <span class="text-muted font-weight-normal font-italic d-block">
-                                        @product.RestaurantName
-                                    </span>
+                    foreach (var product in Model.Products)
+                    {
+                        <tr>
+                            <th scope="row" class="border-0">
+                                <div class="p-2">
+                                    <img src="/images/kfc.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                    <div class="ml-3 d-inline-block align-middle">
+                                        <h5 class="mb-0">
+                                            <a class="text-dark d-inline-block align-middle">@product.ProductName</a>
+                                        </h5>
+                                        <span class="text-muted font-weight-normal font-italic d-block">
+                                            @product.RestaurantName
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                        </th>
-                        <td class="border-0 align-middle cart-align-center"><strong>@(product.ProductPrice * product.Quantity)</strong></td>
-                        <td class="border-0 align-middle cart-align-center"><strong>@product.Quantity</strong></td>
-                        <td class="border-0 align-middle cart-align-center"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a></td>
-                    </tr>
+                            </th>
+                            <td class="border-0 align-middle cart-align-center"><strong>@(product.ProductPrice * product.Quantity)</strong></td>
+                            <td class="border-0 align-middle cart-align-center"><strong>@product.Quantity</strong></td>
+                            <td class="border-0 align-middle cart-align-center"><a href="@Url.Action("Remove", "Order", new { productId = product.ProductId})" class="text-dark"><i class="fa fa-trash"></i></a></td>
+                        </tr>
+                    }
                 }
             </tbody>
         </table>
     </div>
-    <div>
-        <a href="#" class="btn rounded-pill py-2 btn-block cart-order-btn">Place order</a>
-    </div>
+    @if (productCount > 0)
+    {
+        <div>
+            <a href="@Url.Action("PlaceOrder", "Order")" class="btn rounded-pill py-2 btn-block cart-order-btn">Place order</a>
+        </div>
+    }
+
 </div>
